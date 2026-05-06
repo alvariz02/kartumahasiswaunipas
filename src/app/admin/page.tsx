@@ -147,10 +147,13 @@ export default function AdminPage() {
     <div style={{
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #001845 0%, #003087 60%, #004aad 100%)',
-      padding: '24px 20px',
+      padding: '16px 12px',
       fontFamily: "'Plus Jakarta Sans', sans-serif",
+      width: '100%',
+      maxWidth: '100%',
+      overflowX: 'hidden',
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
 
         {/* HEADER */}
         <div style={{
@@ -169,20 +172,20 @@ export default function AdminPage() {
               Dashboard Admin
             </h1>
           </div>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <a
               href="/"
               style={{
                 background: '#FFD700',
                 color: '#003087',
-                borderRadius: '10px',
-                padding: '10px 20px',
-                fontWeight: '800',
-                fontSize: '13px',
+                borderRadius: '8px',
+                padding: '8px 14px',
+                fontWeight: '700',
+                fontSize: '12px',
                 textDecoration: 'none',
               }}
             >
-              + Tambah Mahasiswa
+              ➕ Tambah
             </a>
             <button
               onClick={exportAllToPDF}
@@ -190,14 +193,14 @@ export default function AdminPage() {
                 background: '#0094D9',
                 color: 'white',
                 border: 'none',
-                borderRadius: '10px',
-                padding: '10px 20px',
-                fontWeight: '800',
-                fontSize: '13px',
+                borderRadius: '8px',
+                padding: '8px 14px',
+                fontWeight: '700',
+                fontSize: '12px',
                 cursor: 'pointer',
               }}
             >
-              📄 Export Semua Kartu ke PDF
+              📄 Export PDF
             </button>
           </div>
         </div>
@@ -205,9 +208,9 @@ export default function AdminPage() {
         {/* STATS */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '16px',
-          marginBottom: '24px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gap: '12px',
+          marginBottom: '20px',
         }}>
           {[
             { label: 'Total Mahasiswa', value: stats.total, icon: '🎓' },
@@ -306,8 +309,8 @@ export default function AdminPage() {
               📭 Tidak ada data ditemukan
             </div>
           ) : (
-            <div style={{ overflowX: 'auto' as const }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse' as const }}>
+            <div style={{ overflowX: 'auto' as const, WebkitOverflowScrolling: 'touch', width: '100%', maxWidth: '100%' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse' as const, minWidth: '600px' }}>
                 <thead>
                   <tr style={{ background: 'rgba(0,48,135,0.5)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                     {['Foto', 'Nama / NPM', 'Fakultas', 'Prodi', 'Alamat', 'Terdaftar', 'Aksi'].map(h => (

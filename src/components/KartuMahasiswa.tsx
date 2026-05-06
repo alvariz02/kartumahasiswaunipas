@@ -29,7 +29,8 @@ export default function KartuMahasiswa({
     <div
       id="kartu-mahasiswa"
       style={{
-        width: '540px',
+        width: forDownload ? '540px' : '100%',
+        maxWidth: '540px',
         minHeight: '320px',
         background: 'white',
         borderRadius: forDownload ? '0' : '16px',

@@ -181,14 +181,18 @@ export default function FormPage() {
     <div className="main-page" style={{
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #001845 0%, #003087 50%, #0050c8 100%)',
-      padding: '24px 16px',
+      padding: '16px 12px',
+      width: '100%',
+      maxWidth: '100%',
+      overflowX: 'hidden',
     }}>
       <div style={{
         maxWidth: '1100px',
         margin: '0 auto',
         display: 'flex',
         flexDirection: 'column' as const,
-        gap: '24px',
+        gap: '20px',
+        width: '100%',
       }}>
 
         {/* HEADER */}
@@ -196,34 +200,47 @@ export default function FormPage() {
           background: 'rgba(255,255,255,0.08)',
           backdropFilter: 'blur(20px)',
           borderRadius: '20px',
-          padding: '24px 28px',
+          padding: '16px',
           border: '1px solid rgba(255,255,255,0.15)',
           display: 'flex',
           alignItems: 'center',
-          gap: '20px',
-        }}>
+          gap: '16px',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          '@media (max-width: 768px)': {
+            padding: '12px',
+          },
+        } as any}>
           <div style={{
-            width: '60px',
-            height: '60px',
-            background: 'white',
-            borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
+            gap: '12px',
+            flex: 1,
+            minWidth: '250px',
           }}>
-            <img src="/logo-unipas.png" alt="Logo" style={{ width: '50px', objectFit: 'contain' }}
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-          </div>
-          <div>
-            <div style={{ color: '#FFD700', fontWeight: '800', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' }}>
-              UNIVERSITAS PASIFIK MOROTAI
+            <div style={{
+              width: '50px',
+              height: '50px',
+              background: 'white',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}>
+              <img src="/logo-unipas.png" alt="Logo" style={{ width: '40px', objectFit: 'contain' }}
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
             </div>
-            <div style={{ color: 'white', fontWeight: '800', fontSize: '20px', marginTop: '2px' }}>
-              Formulir Kartu Mahasiswa
-            </div>
-            <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', marginTop: '2px' }}>
-              Isi data lengkap untuk mendapatkan kartu mahasiswa digital Anda
+            <div>
+              <div style={{ color: '#FFD700', fontWeight: '800', fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                UNIVERSITAS PASIFIK
+              </div>
+              <div style={{ color: 'white', fontWeight: '800', fontSize: '16px', marginTop: '2px', lineHeight: '1.2' }}>
+                Formulir Kartu Mahasiswa
+              </div>
+              <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px', marginTop: '2px', lineHeight: '1.3' }}>
+                Isi data lengkap untuk kartu digital
+              </div>
             </div>
           </div>
           <a
@@ -232,27 +249,28 @@ export default function FormPage() {
             style={{
               background: '#0094D9',
               color: 'white',
-              borderRadius: '12px',
-              padding: '12px 18px',
+              borderRadius: '10px',
+              padding: '10px 14px',
               fontWeight: '700',
-              fontSize: '13px',
+              fontSize: '12px',
               textDecoration: 'none',
-              alignSelf: 'center',
+              whiteSpace: 'nowrap',
+              flex: '0 0 auto',
             }}
           >
-            📋 Lihat Semua Data Mahasiswa
+            📋 Data Mahasiswa
           </a>
         </div>
 
         {/* CONTENT */}
-        <div className="page-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+        <div className="page-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
 
           {/* LEFT: FORM */}
           <div style={{
             background: 'rgba(255,255,255,0.06)',
             backdropFilter: 'blur(20px)',
-            borderRadius: '20px',
-            padding: '28px',
+            borderRadius: '16px',
+            padding: '20px',
             border: '1px solid rgba(255,255,255,0.12)',
           }}>
             <h2 style={{ color: 'white', fontWeight: '800', fontSize: '16px', margin: '0 0 20px', letterSpacing: '0.5px' }}>
@@ -389,8 +407,8 @@ export default function FormPage() {
             <div style={{
               background: 'rgba(255,255,255,0.06)',
               backdropFilter: 'blur(20px)',
-              borderRadius: '20px',
-              padding: '28px',
+              borderRadius: '16px',
+              padding: '20px',
               border: '1px solid rgba(255,255,255,0.12)',
             }}>
               <h2 style={{ color: 'white', fontWeight: '800', fontSize: '16px', margin: '0 0 20px', letterSpacing: '0.5px' }}>
