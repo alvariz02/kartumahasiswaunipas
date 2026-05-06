@@ -53,12 +53,15 @@ body {
 
 .main-page .page-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 24px;
+  align-items: start;
 }
 
 .preview-outer {
-  width: 540px;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
 }
 
 .admin-link {
@@ -69,6 +72,9 @@ body {
   .main-page .page-grid {
     grid-template-columns: 1fr !important;
   }
+  .preview-outer {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -78,6 +84,7 @@ body {
 
   .main-header {
     padding: 18px 20px !important;
+    justify-content: flex-start;
   }
 
   .admin-link {

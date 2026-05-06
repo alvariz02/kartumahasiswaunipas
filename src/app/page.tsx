@@ -89,20 +89,24 @@ export default function FormPage() {
 
       let foto_url: string | null = null;
 
-      // Upload foto jika ada
+      // Upload foto ke Cloudinary via API route jika ada
       if (foto) {
-        const ext = foto.name.split('.').pop();
-        const fileName = `${form.npm}-${Date.now()}.${ext}`;
-        const { error: uploadError } = await supabase.storage
-          .from('foto-mahasiswa')
-          .upload(fileName, foto, { upsert: true });
+        const uploadForm = new FormData();
+        uploadForm.append('file', foto);
 
-        if (!uploadError) {
-          const { data: urlData } = supabase.storage
-            .from('foto-mahasiswa')
-            .getPublicUrl(fileName);
-          foto_url = urlData.publicUrl;
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: uploadForm,
+        });
+
+        const result = await response.json();
+        if (!response.ok || !result.secure_url) {
+          console.error('Upload failed', result);
+          toast.error('Gagal mengunggah foto. Coba lagi.');
+          return;
         }
+
+        foto_url = result.secure_url;
       }
 
       // Simpan ke database
@@ -360,64 +364,21 @@ export default function FormPage() {
 
               {/* DOWNLOAD BUTTON IF LAST SUBMITTED */}
               {lastSubmittedData && (
-                <div style={{ marginTop: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <button
-                    onClick={async () => {
-                      try {
-                        const html2canvas = (await import('html2canvas')).default;
-                        const element = document.getElementById('kartu-mahasiswa');
-                        if (!element) return;
-
-                        const canvas = await html2canvas(element, {
-                          scale: 3,
-                          backgroundColor: '#ffffff',
-                          logging: false,
-                          useCORS: true,
-                        });
-
-                        const link = document.createElement('a');
-                        link.download = `KartuMahasiswa-${lastSubmittedData.npm}.png`;
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
-                        toast.success('Kartu berhasil diunduh!');
-                      } catch {
-                        toast.error('Gagal mengunduh. Coba lagi.');
-                      }
-                    }}
-                    style={{
-                      background: '#FFD700',
-                      color: '#003087',
-                      border: 'none',
-                      borderRadius: '12px',
-                      padding: '14px 28px',
-                      fontWeight: '800',
-                      fontSize: '15px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      boxShadow: '0 4px 20px rgba(255,215,0,0.4)',
-                    }}
-                  >
-                    ⬇ Download Kartu Terakhir
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (savedId) window.open(`/kartu/${savedId}`, '_blank');
-                    }}
-                    style={{
-                      background: 'rgba(255,255,255,0.15)',
-                      color: 'white',
-                      border: '2px solid rgba(255,255,255,0.3)',
-                      borderRadius: '12px',
-                      padding: '14px 28px',
-                      fontWeight: '700',
-                      fontSize: '15px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    🔗 Lihat Link Kartu
-                  </button>
+                <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+                  <div style={{
+                    background: 'rgba(255,255,255,0.08)',
+                    color: 'white',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    borderRadius: '14px',
+                    padding: '18px',
+                    fontSize: '14px',
+                    lineHeight: '1.6',
+                  }}>
+                    ✅ Data sudah tersimpan. Kartu akan diproses oleh admin.
+                    <div style={{ marginTop: '8px', color: 'rgba(255,255,255,0.75)' }}>
+                      Anda tidak dapat mencetak atau mengunduh kartu langsung dari halaman ini.
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -435,7 +396,7 @@ export default function FormPage() {
               <h2 style={{ color: 'white', fontWeight: '800', fontSize: '16px', margin: '0 0 20px', letterSpacing: '0.5px' }}>
                 Preview Kartu
               </h2>
-              <div className="preview-outer" style={{ transform: 'scale(0.88)', transformOrigin: 'top left', width: '540px' }}>
+              <div className="preview-outer" style={{ width: '100%', maxWidth: '540px' }}>
                 <KartuMahasiswa
                   nama={(lastSubmittedData?.nama || form.nama) || 'NAMA MAHASISWA'}
                   npm={(lastSubmittedData?.npm || form.npm) || 'XXXXXXXXXX'}
@@ -462,7 +423,7 @@ export default function FormPage() {
                 <li>Upload foto formal (berpakaian rapi)</li>
                 <li>NPM harus sesuai dengan yang diberikan kampus</li>
                 <li>Data yang tersimpan tidak dapat diubah sendiri</li>
-                <li>Kartu dapat diunduh setelah pengisian selesai</li>
+                <li>Kartu akan diproses dan dicetak oleh admin</li>
               </ul>
             </div>
           </div>

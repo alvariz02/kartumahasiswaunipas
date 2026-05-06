@@ -38,9 +38,25 @@ Buat file `.env.local` di root project:
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc....(paste anon key)
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
 ```
 
-### 2.3 Upload logo
+> `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, dan `CLOUDINARY_API_SECRET` diperlukan untuk upload foto ke Cloudinary secara aman melalui server.
+
+### 2.3 Setup Cloudinary
+1. Buka https://cloudinary.com → buat akun gratis.
+2. Di Cloudinary Dashboard → **Dashboard** → catat **Cloud name**.
+3. Di menu **Settings** → tab **Access Keys** → catat **API Key** dan **API Secret**.
+4. Masukkan ke `.env.local`:
+   - `CLOUDINARY_CLOUD_NAME` = Cloud name kamu
+   - `CLOUDINARY_API_KEY` = API Key kamu
+   - `CLOUDINARY_API_SECRET` = API Secret kamu
+
+> Foto akan diupload secara aman melalui endpoint server, bukan langsung dari browser.
+
+### 2.4 Upload logo
 Letakkan file logo UNIPAS di:
 ```
 public/logo-unipas.png
