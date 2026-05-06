@@ -35,12 +35,24 @@ export default function AdminPage() {
 
   const handleDelete = async (id: string, nama: string) => {
     if (!confirm(`Hapus data ${nama}?`)) return;
-    const { error } = await supabase.from('mahasiswa').delete().eq('id', id);
-    if (error) {
-      toast.error('Gagal menghapus');
-    } else {
+    try {
+      const { data, error } = await supabase
+        .from('mahasiswa')
+        .delete()
+        .eq('id', id);
+      
+      if (error) {
+        console.error('Delete error:', error);
+        toast.error(`Gagal menghapus: ${error.message}`);
+        return;
+      }
+      
       toast.success('Data dihapus');
+      setList(list.filter(item => item.id !== id));
       fetchAll();
+    } catch (err) {
+      console.error('Delete exception:', err);
+      toast.error('Terjadi kesalahan saat menghapus');
     }
   };
 

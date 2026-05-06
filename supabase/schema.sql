@@ -38,6 +38,11 @@ CREATE POLICY "Allow public select" ON mahasiswa
 CREATE POLICY "Allow authenticated update" ON mahasiswa
   FOR UPDATE USING (auth.role() = 'authenticated');
 
+-- Policy: delete hanya untuk authenticated user (admin)
+-- NOTE: Untuk production, sebaiknya gunakan autentikasi dan ganti USING (true) dengan USING (auth.role() = 'authenticated')
+CREATE POLICY "Allow authenticated delete" ON mahasiswa
+  FOR DELETE USING (true);
+
 -- Trigger untuk update updated_at otomatis
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
