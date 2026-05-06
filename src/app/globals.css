@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --unipas-blue: #003087;
+  --unipas-light-blue: #0094D9;
+  --unipas-yellow: #FFD700;
+  --unipas-cyan: #00BCD4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #f0f4f8;
+}
+
+/* Card preview styles */
+.kartu-mahasiswa {
+  width: 400px;
+  height: 250px;
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 48, 135, 0.25);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--unipas-light-blue);
+  border-radius: 3px;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.main-page .page-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.preview-outer {
+  width: 540px;
+}
+
+.admin-link {
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .main-page .page-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-page {
+    padding: 16px 12px !important;
+  }
+
+  .main-header {
+    padding: 18px 20px !important;
+  }
+
+  .admin-link {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-header {
+    padding: 16px 16px !important;
+  }
+}
