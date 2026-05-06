@@ -113,6 +113,8 @@ export default function KartuPage({ params }: { params: { id: string } }) {
       {/* Card */}
       <div style={{
         filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.5))',
+        width: '100%',
+        maxWidth: '540px',
       }}>
         <KartuMahasiswa
           nama={mahasiswa!.nama}
@@ -122,6 +124,7 @@ export default function KartuPage({ params }: { params: { id: string } }) {
           alamat={mahasiswa!.alamat}
           angkatan={mahasiswa!.angkatan}
           fotoUrl={mahasiswa!.foto_url}
+          forDownload={true}
         />
       </div>
 

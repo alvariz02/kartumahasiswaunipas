@@ -32,7 +32,7 @@ export default function KartuMahasiswa({
         width: forDownload ? '540px' : '100%',
         maxWidth: '540px',
         minHeight: '320px',
-        background: 'white',
+        background: '#E0F7FF',
         borderRadius: forDownload ? '0' : '16px',
         overflow: 'hidden',
         fontFamily: "'Plus Jakarta Sans', Arial, sans-serif",
@@ -119,7 +119,7 @@ export default function KartuMahasiswa({
       <div style={{
         textAlign: 'center',
         padding: '12px 0 8px',
-        background: 'white',
+        background: '#E0F7FF',
       }}>
         <span style={{
           color: '#003087',
@@ -149,7 +149,7 @@ export default function KartuMahasiswa({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          opacity: 0.05,
+          opacity: 0.10,
           pointerEvents: 'none',
         }}>
           <img src="/logo-unipas.png" alt="" style={{ width: '140px' }}
@@ -239,9 +239,9 @@ export default function KartuMahasiswa({
           left: 0,
           top: 0,
           bottom: 0,
-          width: '120px',
+          width: '210px',
           background: '#FFD700',
-          clipPath: 'polygon(0 0, 85% 0, 100% 100%, 0 100%)',
+          clipPath: 'polygon(0 0, 90% 0, 100% 100%, 0 100%)',
         }} />
         <div style={{
           position: 'relative',
