@@ -7,6 +7,7 @@ import KartuMahasiswa from '@/components/KartuMahasiswa';
 import toast from 'react-hot-toast';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
 
 export default function AdminPage() {
   const [list, setList] = useState<Mahasiswa[]>([]);
@@ -135,6 +136,47 @@ export default function AdminPage() {
     toast.success('PDF berhasil dibuat!');
   };
 
+  const exportAllToExcel = () => {
+    if (filtered.length === 0) {
+      toast.error('Tidak ada data untuk diekspor');
+      return;
+    }
+
+    const data = filtered.map((m, index) => ({
+      'No': index + 1,
+      'Nama': m.nama,
+      'NPM': m.npm,
+      'Fakultas': m.fakultas,
+      'Prodi': m.prodi,
+      'Alamat': m.alamat,
+      'Angkatan': m.angkatan,
+      'Email': m.email,
+      'No. HP': m.no_hp,
+      'Tanggal Daftar': new Date(m.created_at).toLocaleDateString('id-ID'),
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Data Mahasiswa');
+
+    // Set column widths
+    ws['!cols'] = [
+      { wch: 5 },   // No
+      { wch: 25 },  // Nama
+      { wch: 15 },  // NPM
+      { wch: 15 },  // Fakultas
+      { wch: 25 },  // Prodi
+      { wch: 40 },  // Alamat
+      { wch: 10 },  // Angkatan
+      { wch: 30 },  // Email
+      { wch: 15 },  // No. HP
+      { wch: 15 },  // Tanggal Daftar
+    ];
+
+    XLSX.writeFile(wb, `DataMahasiswa-${new Date().toISOString().split('T')[0]}.xlsx`);
+    toast.success('Excel berhasil diunduh!');
+  };
+
   const filtered = list.filter(m => {
     const matchSearch = !search ||
       m.nama.toLowerCase().includes(search.toLowerCase()) ||
@@ -213,6 +255,21 @@ export default function AdminPage() {
               }}
             >
               📄 Export PDF
+            </button>
+            <button
+              onClick={exportAllToExcel}
+              style={{
+                background: '#10B981',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '8px 14px',
+                fontWeight: '700',
+                fontSize: '12px',
+                cursor: 'pointer',
+              }}
+            >
+              📊 Export Excel
             </button>
           </div>
         </div>
